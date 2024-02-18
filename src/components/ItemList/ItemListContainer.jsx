@@ -27,8 +27,6 @@ const ItemListContainer = ({ greeting }) => {
                     </div>
                 </div>
             </div>
-
-            
         </>
     );
 };

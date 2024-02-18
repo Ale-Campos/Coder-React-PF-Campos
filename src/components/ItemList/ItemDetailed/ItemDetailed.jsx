@@ -1,6 +1,6 @@
 import Counter from "./Counter";
-const ItemDetailed = ({ item }) => {
 
+const ItemDetailed = ({ item }) => {
     const detailsCardStyle = {
         padding: '20px',
         backgroundColor: 'white',
@@ -39,7 +39,7 @@ const ItemDetailed = ({ item }) => {
             </div>
         </div>
         <div className="mt-1">
-            <Counter stock={item.stock} />
+            <Counter producto={item}/>
         </div>
       </div>
     </>

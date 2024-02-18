@@ -1,7 +1,13 @@
 // import { useState } from "react";
+import { useContext } from "react";
 import useCount from "../../../hooks/useCount";
-const Counter = ({ stock }) => {
-    const [result, makeCount] = useCount(1, stock);
+import { CartContext } from "../../../context/CartContext";
+const Counter = ({ producto }) => {
+    const [result, makeCount] = useCount(1, producto.stock);
+
+    const {addProducto} = useContext(CartContext)
+
+    const onAdd = () => addProducto(producto, result)
 
     const handleCount = (operation) => {
         makeCount(operation)
@@ -24,8 +30,8 @@ const Counter = ({ stock }) => {
             </div>
             <div className="row">
                 <div className="col text-center">
-                    <button className="btn btn-secondary mt-1">Add to cart</button>
-                    <p className="text-center my-0">Stock disponible: {stock}</p>
+                    <button onClick={()=> onAdd()} className="btn btn-secondary mt-1">Add to cart</button>
+                    <p className="text-center my-0">Stock disponible: {producto.stock}</p>
                 </div>
             </div>
         </>

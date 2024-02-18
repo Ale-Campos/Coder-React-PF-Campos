@@ -52,8 +52,10 @@ const NavBar = () => {
                       </NavLink>
                     </li>
                   </ul>
-                  <div className="cart">
-                    <CartWidget></CartWidget>
+                  <div className="cart nav-link">
+                    <NavLink to={'/cart'}>
+                      <CartWidget></CartWidget>
+                    </NavLink>
                     <div className="navbar-collapse">
                     </div>
                   </div>

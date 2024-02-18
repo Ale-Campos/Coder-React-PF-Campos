@@ -1,4 +1,10 @@
+import { useContext } from "react";
+import { CartContext } from "../../context/CartContext";
+
 const CartWidget = () => {
+
+  const {getCantProductos} = useContext(CartContext)
+
   return (
     <div className="card-widget" style={{ marginRight:"40px" }}>
       <div className="card-widget__icon">
@@ -12,7 +18,7 @@ const CartWidget = () => {
             fontSize: "12px",
             borderRadius: "50%",
             }}>
-            0
+            {getCantProductos()}
           </span>
         </i>
       </div>
