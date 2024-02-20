@@ -9,9 +9,9 @@ export const CartContextProvider = ({children}) => {
 
     const getCantProductos = () => productos.length
 
-    const getSumaTotal = () => productos.reduce((total, producto) => total += producto.precio * producto.cantidad, 0)
+    const getSumaTotal = () => productos.reduce((total, producto) => total += producto.price * producto.cantidad, 0)
 
-    const addProducto = (producto, cantidad) => setProductos([...productos, {producto, cantidad}])
+    const addProducto = (producto, cantidad) => setProductos([...productos, {...producto, cantidad}])
 
     return (
         <CartContext.Provider value= {{productos, getCantProductos, getSumaTotal, addProducto}}>

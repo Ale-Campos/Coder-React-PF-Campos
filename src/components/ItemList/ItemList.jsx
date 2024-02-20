@@ -4,7 +4,7 @@ const ItemList = ({ items }) => {
   return (
     <>
       <div className="container-fluid mb-4">
-        <div className="row">
+        <div className="row justify-content-center">
           <div className="col-12 col-md-6 d-flex flex-wrap gap-4 justify-content-center">
             {
               items.map(
