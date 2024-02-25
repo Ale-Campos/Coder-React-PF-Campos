@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom"
 import ItemDetailed from "./ItemDetailed"
-import { collection, getDocs, getFirestore } from "firebase/firestore"
+import { getFirestore, doc, getDoc } from "firebase/firestore"
 import { useEffect, useState } from "react"
 import Loading from "../../Loading/Loading"
 
@@ -12,12 +12,15 @@ const ItemDetailContainer = () => {
     useEffect(() => {
         const fetchProduct = async () => {
             const db = getFirestore();
-            const itemsCollection = collection(db, 'productos')
-
-            let items = await getDocs(itemsCollection).then((snap) => snap.docs.map(doc => doc.data()))
-            let selectedProduct = items.find(item => item.id === parseInt(productId))
-            setProduct(selectedProduct)
-            setLoading(false)
+            const prodRef = doc(db, 'productos', productId)
+            getDoc(prodRef).then((snap) => {
+                if(snap.exists()) {
+                    setProduct({id: snap.id, ...snap.data()})
+                    setLoading(false)
+                }
+            }).catch((err) => {
+                console.log(err)
+            })
         }
 
         fetchProduct()

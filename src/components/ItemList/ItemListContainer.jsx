@@ -19,6 +19,8 @@ const ItemListContainer = ({ greeting }) => {
             let items = snap.docs.map(doc => ({id: doc.id, ...doc.data()}))
             setProductos(items)
             setLoading(false)
+        }).catch((err) => {
+            console.log(err)
         })
         
     }, [categoryId])

@@ -1,7 +1,6 @@
 import Counter from "./Counter";
 
 const ItemDetailed = ({ item, loading }) => {
-  console.log(item);
   const detailsCardStyle = {
     padding: "20px",
     backgroundColor: "white",

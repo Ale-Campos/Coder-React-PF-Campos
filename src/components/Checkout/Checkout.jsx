@@ -1,10 +1,13 @@
 import Form from "./Form"
-import { getFirestore, collection, addDoc } from "firebase/firestore"
+import { getFirestore, collection, addDoc, writeBatch, doc } from "firebase/firestore"
 
 const Checkout = ({productos}) => {
 
     const handleSubmit = (e, name, lastname, email) => {
         e.preventDefault()
+        const db = getFirestore()
+        const orders = collection(db, 'orders')
+
         const order = {
             buyer: {
                 name: name,
@@ -14,9 +17,14 @@ const Checkout = ({productos}) => {
             items: productos,
             date: new Date().toString()
         }
-        const db = getFirestore()
-        const orders = collection(db, 'orders')
-        addDoc(orders, order)
+         addDoc(orders, order)
+        
+        const batch = writeBatch(db)
+        productos.forEach((prod) => {
+            const docRef = doc(db, 'productos', prod.id)
+            batch.update(docRef, {stock: prod.stock - prod.cantidad})
+        })
+        batch.commit()
     }
 
     return (
