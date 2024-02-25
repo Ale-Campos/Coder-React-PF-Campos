@@ -21,7 +21,16 @@ const Form = ({handleSubmit}) => {
           <label className="form-label">Email</label>
           <input onKeyUp={(e) => setEmail(e.target.value)} type="email" className="form-control" />
         </div>
-        <button onClick={(e) => handleSubmit(e, name, lastname, email)} type="button" className="btn btn-primary">Confirmar compra</button>
+        <div className="">
+          <button data-bs-dismiss="modal" onClick={(e) => handleSubmit(e, name, lastname, email)} type="button" className="btn btn-primary">Confirmar compra</button>
+          <button
+            type="button"
+            className="btn btn-secondary ms-1"
+            data-bs-dismiss="modal"
+          >
+            Cerrar
+          </button>
+        </div>
       </form>
     </>
   )
