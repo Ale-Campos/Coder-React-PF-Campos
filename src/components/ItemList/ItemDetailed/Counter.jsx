@@ -1,13 +1,26 @@
 // import { useState } from "react";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import useCount from "../../../hooks/useCount";
 import { CartContext } from "../../../context/CartContext";
 const Counter = ({ producto }) => {
     const [result, makeCount] = useCount(1, producto.stock);
+    const [agregado, setAgregado] = useState(false);
+    const {addProducto, productos} = useContext(CartContext)
 
-    const {addProducto} = useContext(CartContext)
+    useEffect(() => {
+        if(productos.find(item => item.id === producto.id)) {
+            setAgregado(true)
+        }
+    }, [productos, producto.id]) 
 
-    const onAdd = () => addProducto(producto, result)
+
+    const onAdd = () => {
+        if(!agregado) {
+            addProducto(producto, result)
+        }else {
+            alert("El producto ya se encuentra en el carrito")
+        }
+    }
 
     const handleCount = (operation) => {
         makeCount(operation)
@@ -16,22 +29,18 @@ const Counter = ({ producto }) => {
     return(
         <>
             <div className="row">
-                <div className="col">
-                    <div className="input-group">
-                        <div className="input-group-prepend">
-                            <button onClick={() => handleCount('-')} className="btn btn-secondary" type="button" id="button-addon1">-</button>
-                        </div>
-                        <input type="text" className="form-control text-center" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1" value={result} readOnly/>
-                        <div className="input-group-append">
-                            <button onClick={() => handleCount('+')} className="btn btn-secondary" type="button" id="button-addon2">+</button>
-                        </div>
+                <div className="col text-center">
+                    <div className="btn-group">
+                        <button onClick={() => handleCount('-')} className="btn btn-secondary" type="button">-</button>
+                        <input className="btn text-center" value={result} style={{border: "1px solid #d6d7dd", maxWidth:"50px"}} readOnly/>
+                        <button onClick={() => handleCount('+')} className="btn btn-secondary" type="button">+</button>
                     </div>
                 </div>
             </div>
             <div className="row">
                 <div className="col text-center">
-                    <button onClick={()=> onAdd()} className="btn btn-secondary mt-1">Add to cart</button>
-                    <p className="text-center my-0">Stock disponible: {producto.stock}</p>
+                    <button onClick={()=> onAdd()} className="btn btn-secondary mt-2">{agregado? "Ya esta agregado" : "Agregar"}</button>
+                    <p className="text-center m-0">Stock disponible: {producto.stock}</p>
                 </div>
             </div>
         </>

@@ -19,6 +19,6 @@ export default class Producto {
         { id: 13, category:"otros", title: "Robot Aspirador iRobot Roomba i7+", description: "Un robot aspirador inteligente con navegación vSLAM, limpieza personalizada y capacidad de vaciado automático.", details: "Navegación: vSLAM, Limpieza: Personalizada, Vaciado automático: Sí", price: 13000, stock: 10, pictureUrl: "https://via.placeholder.com/200" },
         { id: 14, category:"otros", title: "Reproductor de Streaming Roku Ultra", description: "Un reproductor de streaming 4K con soporte HDR, control remoto con botones de acceso directo y búsqueda por voz.", details: "Resolución: 4K, HDR: Sí, Control remoto: Botones de acceso directo, Búsqueda por voz: Sí", price: 14000, stock: 10, pictureUrl: "https://via.placeholder.com/200" },
         { id: 15, category:"otros", title: "Batería Externa Anker PowerCore+", description: "Una batería externa de alta capacidad con carga rápida, compatible con dispositivos USB-C y USB-A.", details: "Capacidad: Alta, Carga rápida: Sí, Compatibilidad: USB-C y USB-A", price: 15000, stock: 10, pictureUrl: "https://via.placeholder.com/200" }
-    ];
+    ]
   }
 }

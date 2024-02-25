@@ -1,15 +1,14 @@
 import { useContext } from "react";
 import { CartContext } from "../../context/CartContext";
+import "./Cart.css";
+import Checkout from "../Checkout/Checkout";
 
 export const Cart = () => {
-  const { productos, getCantProductos, getSumaTotal} = useContext(CartContext);
-  console.log('productosss');
-  console.log(productos);
+  const { productos, getCantProductos, getSumaTotal } = useContext(CartContext);
 
   if (getCantProductos() > 0) {
     return (
       <>
-
         <section className="container mt-5">
           <table className="table table-striped">
             <thead>
@@ -34,14 +33,31 @@ export const Cart = () => {
             </tbody>
           </table>
         </section>
+        <section>
+          <div className="container">
+            <div className="row">
+              <div className="col">
+                <button
+                  type="button"
+                  data-bs-toggle="modal"
+                  data-bs-target="#modal"
+                  className="btn btn-primary"
+                >
+                  Finalizar compra
+                </button>
+              </div>
+            </div>
+          </div>
+        </section>
+        <Checkout productos={productos}/>
       </>
     );
   } else {
     return (
       <div>
-          <h1>El carrito está vacío</h1>
+        <h1>El carrito está vacío</h1>
       </div>
-    )
+    );
   }
 };
 

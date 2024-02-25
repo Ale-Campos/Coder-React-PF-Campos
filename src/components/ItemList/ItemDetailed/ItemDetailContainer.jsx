@@ -1,23 +1,35 @@
-import { useParams } from "react-router-dom";
+import { useParams } from "react-router-dom"
 import ItemDetailed from "./ItemDetailed"
-import Producto from "../../../db/database";
+import { collection, getDocs, getFirestore } from "firebase/firestore"
+import { useEffect, useState } from "react"
+import Loading from "../../Loading/Loading"
 
 const ItemDetailContainer = () => {
+    const { productId } = useParams()
+    const [product, setProduct] = useState(null)
+    const [loading, setLoading] = useState(true)
 
-    //TODO: Con useParam obtengo el id del producto y lo busco en la "base de datos"
-    const items = Producto.listarProductos();
-    console.log(items);
-    
-    const {productId} = useParams('productId');
+    useEffect(() => {
+        const fetchProduct = async () => {
+            const db = getFirestore();
+            const itemsCollection = collection(db, 'productos')
 
-    let product = items.find(item => item.id === parseInt(productId));
+            let items = await getDocs(itemsCollection).then((snap) => snap.docs.map(doc => doc.data()))
+            let selectedProduct = items.find(item => item.id === parseInt(productId))
+            setProduct(selectedProduct)
+            setLoading(false)
+        }
 
-    return (
-        <>
-            <ItemDetailed item={product}></ItemDetailed>
-        </>
-    )
+        fetchProduct()
+    }, [productId])
 
+    if(loading) {
+        return (<Loading/>)
+    } else {
+        return (
+                <ItemDetailed loading={loading} item={product}></ItemDetailed>
+        )
+    }
 }
 
 export default ItemDetailContainer;
